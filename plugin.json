@@ -1,0 +1,9 @@
+{
+  "name": "sinusitis-care",
+  "version": "1.0.0",
+  "description": "Comprehensive sinusitis patient care assistant",
+  "author": "milsonson",
+  "skills": [
+    "sinusitis-care"
+  ]
+}
