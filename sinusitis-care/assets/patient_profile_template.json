@@ -1,0 +1,61 @@
+{
+  "demographics": {
+    "age": null,
+    "gender": null
+  },
+  "medical_history": {
+    "sinusitis_history": {
+      "type": "",
+      "frequency": "",
+      "typical_triggers": []
+    },
+    "previous_surgeries": [],
+    "last_ct_scan": {
+      "date": null,
+      "findings": ""
+    },
+    "last_endoscopy": {
+      "date": null,
+      "findings": ""
+    }
+  },
+  "allergies": {
+    "environmental": [],
+    "medication": [],
+    "food": []
+  },
+  "current_medications": [],
+  "comorbidities": {
+    "asthma": false,
+    "diabetes": false,
+    "immune_disorders": [],
+    "other": []
+  },
+  "social_history": {
+    "smoking_status": "",
+    "pack_years": null,
+    "occupation": "",
+    "environment": {
+      "climate": "",
+      "indoor_air_quality": "",
+      "pets": [],
+      "mold_exposure": false
+    }
+  },
+  "symptom_baseline": {
+    "duration_current_episode": "",
+    "primary_symptoms": [],
+    "severity": "",
+    "laterality": ""
+  },
+  "drug_sensitivities": {
+    "aspirin_sensitivity": false,
+    "antibiotic_resistance": []
+  },
+  "microbiology": {
+    "recent_cultures": [],
+    "antibiotic_sensitivities": []
+  },
+  "created_at": null,
+  "last_updated": null
+}
