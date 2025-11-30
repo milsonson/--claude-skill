@@ -1,131 +1,338 @@
-# Sinusitis Care - Claude Skill
+# 鼻窦炎护理助手 - Claude 技能
 
-A comprehensive Claude skill for providing evidence-based sinusitis patient care and support.
+一个专业的鼻窦炎咨询助手，提供基于循证医学的健康建议和支持。
 
-## Overview
+## 这是什么？
 
-This skill transforms Claude into a specialized sinusitis care assistant that provides:
+这是一个为 Claude Code 开发的专业医疗咨询技能。安装后，你可以像咨询专业医生一样向 Claude 提问鼻窦炎相关的问题，它会：
 
-- 🔍 **Symptom Analysis** - Identify sinusitis type and severity
-- 💊 **Treatment Guidance** - Evidence-based recommendations from authoritative sources
-- 🏥 **Emergency Assessment** - Identify danger signals requiring immediate care
-- 📊 **Patient Record Management** - Track symptoms and consultations over time
-- 🌐 **Real-time Medical Research** - Search 8 authoritative medical websites
+- 🔍 **深度文献检索** - 自动搜索 10-15+ 个权威医学数据库
+- 💊 **循证医学建议** - 基于 UpToDate、Mayo Clinic、PubMed 等权威来源
+- 🏥 **危险信号识别** - 自动识别需要紧急就医的症状
+- 📊 **病历管理** - 可选的个人病历追踪功能
+- 🌐 **实时医学研究** - 使用 WebFetch 深度阅读最新医学文献
 
-## Features
+## 核心特色
 
-### Evidence-Based Information
-- Integrates with 8 authoritative medical sources (UpToDate, Mayo Clinic, Cleveland Clinic, Johns Hopkins, AAO-HNS, EPOS, PubMed, WebMD)
-- Real-time search capability for latest medical information
-- Cross-validation from multiple sources for complex cases
+### 🎯 严格的循证医学标准
+- **强制性多源验证**：每次咨询自动搜索 10-15+ 个权威来源
+- **深度文献阅读**：使用 WebFetch 完整阅读 3-5 篇关键文献（而非仅看摘要）
+- **不确定性标注**：明确标注信息可信度（✅高置信度 ⚠️中等 ❓不确定 🔍未验证）
+- **矛盾主动调查**：发现不同来源矛盾时，自动深入调查
+- **完整引用**：所有建议都附带具体来源引用
 
-### Intelligent Information Gathering
-- Tiered approach: simple questions use existing knowledge, complex cases trigger multi-source research
-- Full freedom for Claude to determine appropriate research depth
-- Flexible output formatting based on question complexity
+### 🛡️ 患者安全第一
+- 自动检测危险信号（高热、视力改变、精神状态异常等）
+- 每次回复都包含医疗免责声明
+- 明确指导何时需要就医
+- 绝不提供具体药物剂量
 
-### Patient Safety
-- Automatic danger signal detection
-- Medical disclaimer on every response
-- Clear guidance on when to seek professional care
-- Never provides specific drug dosages
+### 📋 可选的病历追踪
+- 结构化患者档案收集
+- 按日期组织的咨询历史
+- 自动保存在 `~/.sinusitis-care/` 目录
+- 下次咨询时自动加载历史记录
 
-### Continuity of Care
-- Structured patient profile collection
-- Date-organized consultation history
-- Automatic record keeping in `~/.sinusitis-care/` directory
+## 前置要求
 
-## Installation
+### 1. 安装 Claude Code（如果还没有）
 
-1. Download the `sinusitis-care.skill` file
-2. Import it into Claude Code or your Claude environment
-3. The skill will automatically activate when users ask sinusitis-related questions
+**macOS/Linux:**
+```bash
+# 使用 Homebrew 安装（推荐）
+brew install anthropics/claude/claude
 
-## Usage
-
-### First-Time Patient
-The skill will guide new patients through collecting baseline information:
-- Demographics (age, gender)
-- Medical history (previous sinusitis episodes, surgeries)
-- Allergies and current medications
-- Environmental factors
-- Recent diagnostic tests (CT scans, etc.)
-
-### Consultations
-Simply ask questions about sinusitis symptoms, treatment, or concerns:
-- "I have nasal congestion and facial pain for 5 days"
-- "What's the difference between acute and chronic sinusitis?"
-- "Should I see a doctor for my symptoms?"
-- "How often should I do nasal irrigation?"
-
-### Data Storage
-All patient data is stored locally in:
-- `~/.sinusitis-care/patient_profile.json` - Baseline patient information
-- `~/.sinusitis-care/consultations/` - Individual consultation records by date
-
-## Skill Structure
-
-```
-sinusitis-care/
-├── SKILL.md                          # Main skill definition
-├── references/                       # Medical knowledge resources
-│   ├── medical_sources.md           # 8 authoritative medical websites
-│   ├── danger_signals.md            # Emergency warning signs
-│   ├── patient_profile_fields.md    # Patient information guide
-│   └── medical_disclaimer.md        # Disclaimer templates
-├── scripts/                         # Patient data management
-│   ├── init_patient.py             # Initialize new patient
-│   ├── load_patient_data.py        # Load patient history
-│   └── save_consultation.py        # Save consultation records
-└── assets/
-    └── patient_profile_template.json # Patient data structure
+# 或者使用 npm
+npm install -g @anthropics/claude-code
 ```
 
-## Design Philosophy
+**Windows:**
+```bash
+# 使用 npm
+npm install -g @anthropics/claude-code
+```
 
-This skill is designed with **high freedom for AI**:
-- Provides authoritative resources without rigid templates
-- Gives Claude full discretion in research depth and output format
-- Trusts AI's clinical judgment while ensuring safety guardrails
-- Focuses on principles over prescriptive procedures
+安装完成后，运行：
+```bash
+claude auth login
+```
+按照提示登录你的 Anthropic 账号。
 
-## Medical Disclaimer
+详细安装指南：https://github.com/anthropics/claude-code
 
-⚠️ **Important**: This skill provides educational information only and does not replace professional medical advice, diagnosis, or treatment. Always consult qualified healthcare providers for medical concerns.
+### 2. 确保有 Anthropic API 访问权限
+需要有效的 Claude API 访问权限。如果还没有，请访问：https://console.anthropic.com
 
-## Authoritative Medical Sources
+## 安装本技能
 
-1. **UpToDate** - Clinical decision support
-2. **Mayo Clinic** - Patient education and clinical guidelines
-3. **Cleveland Clinic** - ENT-specific information
-4. **Johns Hopkins Medicine** - Academic medical perspective
-5. **AAO-HNS** - American Academy of Otolaryngology official guidelines
-6. **EPOS** - European Position Paper on Rhinosinusitis
-7. **PubMed** - Latest research and systematic reviews
-8. **WebMD** - Patient-friendly health information
+### 方法一：从 GitHub 直接安装（推荐）
 
-## Contributing
+```bash
+# 克隆仓库到 Claude 插件目录
+cd ~/.claude/plugins/marketplaces
+git clone https://github.com/milsonson/--claude-skill.git sinusitis-care-marketplace
 
-Contributions are welcome! This skill was created for individual patients but could be enhanced with:
-- Additional medical knowledge resources
-- Improved patient data visualization
-- Integration with health tracking apps
-- Multi-language support
+# 或者如果你已经有了本地文件，直接复制到插件目录
+cp -r /path/to/sinusitis-care-marketplace ~/.claude/plugins/marketplaces/
+```
 
-## License
+### 方法二：手动下载安装
 
-MIT License - Feel free to use, modify, and distribute.
+1. 从 [GitHub Releases](https://github.com/milsonson/--claude-skill/releases) 下载最新版本
+2. 解压文件
+3. 将整个文件夹复制到 `~/.claude/plugins/marketplaces/`
 
-## Acknowledgments
+### 验证安装
 
-Created using Claude Code and the skill-creator framework from Anthropic's Agent Skills marketplace.
+```bash
+# 重启 Claude Code
+claude restart
 
-## Contact
+# 或者重新打开终端，运行
+claude
+```
 
-For questions, issues, or suggestions, please open an issue on GitHub.
+在 Claude Code 中输入：`/sinusitis-care`，如果看到技能启动，说明安装成功！
+
+## 快速开始
+
+### 第一次使用
+
+1. **启动 Claude Code**
+   ```bash
+   claude
+   ```
+
+2. **启动鼻窦炎护理技能**
+   ```
+   /sinusitis-care
+   ```
+
+3. **直接提问**
+
+   你可以直接问问题，无需特殊格式：
+
+   - "我鼻塞和面部疼痛已经5天了，怎么办？"
+   - "急性鼻窦炎和慢性鼻窦炎有什么区别？"
+   - "什么症状需要立即看医生？"
+   - "鼻腔冲洗应该多久做一次？"
+   - "鼻窦炎可以用抗生素吗？"
+
+### 咨询过程说明
+
+当你提问后，技能会自动：
+
+1. ✅ **启动循证审查模式** - 说明即将进行的文献检索
+2. 🔍 **执行多轮搜索** - 搜索 10-15+ 个权威医学数据库
+   - 第一轮：核心来源（UpToDate、AAO-HNS、Mayo Clinic、PubMed）
+   - 第二轮：深度研究（系统综述、专科资源）
+   - 第三轮：验证矛盾和最新进展
+3. 📖 **深度阅读** - 使用 WebFetch 完整阅读 3-5 篇关键文献
+4. 💡 **提供建议** - 给出基于证据的建议，标注可信度
+5. ⚠️ **检查危险信号** - 识别需要紧急就医的症状
+6. 📚 **列出来源** - 提供所有参考来源的完整列表
+
+### 可选功能：个人病历管理
+
+如果你想要追踪病史和咨询记录：
+
+**首次建档时**，助手会询问：
+- 年龄、性别等基本信息
+- 既往鼻窦炎病史
+- 过敏史和当前用药
+- 环境因素（吸烟、职业暴露等）
+- 近期检查结果（CT 扫描等）
+
+**数据存储位置**：
+- `~/.sinusitis-care/patient_profile.json` - 个人档案
+- `~/.sinusitis-care/consultations/` - 咨询记录（按日期）
+
+所有数据都保存在你的本地电脑，绝不上传到外部服务器。
+
+## 使用示例
+
+### 示例 1：症状咨询
+
+**你的问题：**
+```
+我最近3天鼻子堵得厉害，额头和脸颊有压痛感，还有点黄色鼻涕。
+这是鼻窦炎吗？需要吃抗生素吗？
+```
+
+**助手会做什么：**
+1. 搜索 10+ 个医学数据库（UpToDate、Mayo、PubMed等）
+2. 深度阅读 3-5 篇关于急性细菌性鼻窦炎诊断标准的文献
+3. 提供详细评估：
+   - 症状分析（是否符合急性鼻窦炎诊断）
+   - 细菌性 vs 病毒性鼻窦炎的鉴别
+   - 是否需要抗生素（根据最新指南）
+   - 推荐的初步治疗措施
+   - 何时需要就医
+4. 标注每条建议的可信度（✅⚠️❓）
+5. 列出所有参考来源
+
+### 示例 2：治疗方案对比
+
+**你的问题：**
+```
+鼻腔冲洗和鼻喷激素哪个更有效？可以一起用吗？
+```
+
+**助手会做什么：**
+1. 搜索对照研究和系统综述
+2. 比较两种治疗的循证医学证据
+3. 说明：
+   - 各自的作用机制
+   - 有效性的证据等级
+   - 是否可以联合使用
+   - 使用注意事项
+4. 引用具体研究和指南
+
+### 示例 3：危险信号识别
+
+**你的问题：**
+```
+我鼻窦炎有一周了，今天突然右眼有点肿，看东西有点模糊。
+```
+
+**助手会立即：**
+1. **🚨 识别危险信号**：眼部症状提示可能的眶周/眶内并发症
+2. **明确建议：立即就医** - 这是需要紧急评估的情况
+3. 解释为什么这些症状危险
+4. 说明可能的并发症（眶蜂窝织炎等）
+5. 建议的检查项目（CT等）
+
+## 技能文件结构
+
+```
+sinusitis-care-marketplace/
+├── README.md                          # 本文档
+├── plugin.json                        # 插件配置
+├── marketplace.json                   # 市场配置
+├── sinusitis-care/
+│   ├── SKILL.md                      # 核心技能定义（循证医学协议）
+│   ├── references/                   # 医学知识资源
+│   │   ├── medical_sources.md       # 8个权威医学网站
+│   │   ├── danger_signals.md        # 紧急就医指征
+│   │   ├── patient_profile_fields.md # 患者信息指南
+│   │   └── medical_disclaimer.md    # 免责声明模板
+│   ├── scripts/                     # 患者数据管理脚本
+│   │   ├── init_patient.py         # 初始化新患者
+│   │   ├── load_patient_data.py    # 加载患者历史
+│   │   └── save_consultation.py    # 保存咨询记录
+│   └── assets/
+│       └── patient_profile_template.json # 患者数据结构
+```
+
+## 权威医学来源
+
+本技能整合了以下 8 个权威医学数据库：
+
+1. **UpToDate** - 临床决策支持系统
+2. **Mayo Clinic** - 患者教育和临床指南
+3. **Cleveland Clinic** - 耳鼻喉专科信息
+4. **Johns Hopkins Medicine** - 学术医学视角
+5. **AAO-HNS** - 美国耳鼻喉头颈外科学会官方指南
+6. **EPOS** - 欧洲鼻鼻窦炎立场文件
+7. **PubMed** - 最新研究和系统综述
+8. **WebMD** - 患者友好的健康信息
+
+## 常见问题
+
+### Q: 这个技能安全吗？
+A: 是的。本技能：
+- 基于权威医学来源提供循证信息
+- 自动检测危险信号并建议就医
+- 每次都包含医疗免责声明
+- 不提供具体药物剂量
+- 不替代专业医疗建议
+
+### Q: 数据隐私如何保证？
+A: 所有患者数据都保存在你的本地电脑（`~/.sinusitis-care/`），绝不上传到外部服务器。你可以随时查看、修改或删除这些数据。
+
+### Q: 需要付费吗？
+A: 本技能本身免费开源（MIT 许可）。但使用 Claude Code 需要 Anthropic API 访问权限，可能产生 API 使用费用。
+
+### Q: 可以替代看医生吗？
+A: **绝对不能**。本技能仅提供教育性信息，帮助你更好地了解鼻窦炎。任何医疗决策都应该咨询专业医疗人员。
+
+### Q: 支持其他语言吗？
+A: 目前主要支持中文和英文。欢迎贡献其他语言的翻译。
+
+### Q: 如何卸载？
+```bash
+# 删除插件目录
+rm -rf ~/.claude/plugins/marketplaces/sinusitis-care-marketplace
+
+# 删除患者数据（可选）
+rm -rf ~/.sinusitis-care
+```
+
+## 设计理念
+
+### 高自由度 AI 设计
+- 提供权威资源，而非僵化模板
+- 赋予 Claude 充分的研究深度和输出格式决策权
+- 信任 AI 的临床判断，同时确保安全护栏
+- 专注于原则而非程序
+
+### 质量优先原则
+- **质量 > 速度** - 宁可多花时间深入研究
+- **深度 > 广度** - 完整阅读文献而非只看摘要
+- **透明 > 假自信** - 明确标注不确定性
+- **证据 > 观点** - 所有建议都基于证据
+
+## 贡献指南
+
+欢迎贡献！可以改进的方向：
+- 增加医学知识资源
+- 改进患者数据可视化
+- 集成健康追踪应用
+- 多语言支持
+- 更多医学专科技能
+
+**如何贡献：**
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
+3. 提交更改 (`git commit -m 'Add some amazing feature'`)
+4. 推送到分支 (`git push origin feature/amazing-feature`)
+5. 开启 Pull Request
+
+## 医疗免责声明
+
+⚠️ **重要提示**：
+
+本技能仅提供教育性信息，**不构成专业医疗建议、诊断或治疗**。任何健康问题都应该咨询合格的医疗保健提供者。
+
+- 不要仅依赖本技能的信息做医疗决策
+- 出现严重症状请立即就医
+- 不要延迟寻求专业医疗建议
+- 本技能不对任何因使用信息导致的后果负责
+
+## 许可证
+
+MIT License - 自由使用、修改和分发。
+
+## 致谢
+
+- 使用 Claude Code 和 Anthropic 代理技能市场的 skill-creator 框架创建
+- 感谢所有权威医学机构提供的公开医学信息
+
+## 联系方式
+
+- **Issues**: https://github.com/milsonson/--claude-skill/issues
+- **Discussions**: https://github.com/milsonson/--claude-skill/discussions
 
 ---
 
-**Version**: 1.0.0
-**Created**: November 2025
-**For**: Individual sinusitis patients seeking evidence-based health information
+**版本**: 2.0.0
+**更新日期**: 2025年11月
+**适用对象**: 寻求循证健康信息的鼻窦炎患者
+
+**主要更新**:
+- ✨ 新增强制性 10-15+ 来源搜索协议
+- ✨ 新增 WebFetch 深度文献阅读
+- ✨ 新增不确定性明确标注系统
+- ✨ 新增矛盾主动调查机制
+- 📚 完全重写循证医学工作流程
+- 🌏 新增完整中文文档支持
