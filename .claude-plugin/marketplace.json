@@ -12,11 +12,7 @@
     {
       "name": "sinusitis-care",
       "description": "Comprehensive sinusitis patient care assistant providing evidence-based medical support. Use when users ask about sinusitis (acute/chronic/fungal), nasal sinus symptoms (congestion, headache, facial pain, post-nasal drip), treatment options, medication guidance, lifestyle recommendations, or need symptom assessment.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./sinusitis-care"
-      ]
+      "source": "./"
     }
   ]
 }
