@@ -56,7 +56,7 @@ claude auth login
 如果npm显示命令失败，去装一下nodejs。在nodejs官网。可以问
 
 ## 安装本技能
-直接在网上查：如何安装claude code插件即可。
+直接在网上查：如何安装claude code技能即可。
 
 ## 使用示例
 
