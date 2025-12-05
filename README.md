@@ -45,10 +45,6 @@ npm install -g @anthropics/claude-code
 npm install -g @anthropics/claude-code
 ```
 
-安装完成后，运行：
-```bash
-claude auth login
-```
 按照提示登录你的 Anthropic 账号。
 注意，a社的价格很贵。但是国产很多大模型也兼容这个框架：比如kimi-k2-thinking.具体可以见moonshot官网。
 
