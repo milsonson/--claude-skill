@@ -6,10 +6,9 @@
 
 这是一个为 Claude Code 开发的专业医疗咨询技能。安装后，你可以像咨询专业医生一样向 Claude 提问鼻窦炎相关的问题，它会：
 
-- 🔍 **深度文献检索** - 自动搜索 10-15+ 个权威医学数据库
+- 🔍 **深度文献检索** - 多层自动搜索 10-15+ 个权威医学数据库
 - 💊 **循证医学建议** - 基于 UpToDate、Mayo Clinic、PubMed 等权威来源
 - 🏥 **危险信号识别** - 自动识别需要紧急就医的症状
-- 📊 **病历管理** - 可选的个人病历追踪功能
 - 🌐 **实时医学研究** - 使用 WebFetch 深度阅读最新医学文献
 
 ## 核心特色
@@ -26,12 +25,6 @@
 - 每次回复都包含医疗免责声明
 - 明确指导何时需要就医
 - 绝不提供具体药物剂量
-
-### 📋 可选的病历追踪
-- 结构化患者档案收集
-- 按日期组织的咨询历史
-- 自动保存在 `~/.sinusitis-care/` 目录
-- 下次咨询时自动加载历史记录
 
 ## 前置要求
 
@@ -57,97 +50,13 @@ npm install -g @anthropics/claude-code
 claude auth login
 ```
 按照提示登录你的 Anthropic 账号。
+注意，a社的价格很贵。但是国产很多大模型也兼容这个框架：比如kimi-k2-thinking.具体可以见moonshot官网。
 
 详细安装指南：https://github.com/anthropics/claude-code
-
-### 2. 确保有 Anthropic API 访问权限
-需要有效的 Claude API 访问权限。如果还没有，请访问：https://console.anthropic.com
+如果npm显示命令失败，去装一下nodejs。在nodejs官网。可以问
 
 ## 安装本技能
-
-### 方法一：从 GitHub 直接安装（推荐）
-
-```bash
-# 克隆仓库到 Claude 插件目录
-cd ~/.claude/plugins/marketplaces
-git clone https://github.com/milsonson/--claude-skill.git sinusitis-care-marketplace
-
-# 或者如果你已经有了本地文件，直接复制到插件目录
-cp -r /path/to/sinusitis-care-marketplace ~/.claude/plugins/marketplaces/
-```
-
-### 方法二：手动下载安装
-
-1. 从 [GitHub Releases](https://github.com/milsonson/--claude-skill/releases) 下载最新版本
-2. 解压文件
-3. 将整个文件夹复制到 `~/.claude/plugins/marketplaces/`
-
-### 验证安装
-
-```bash
-# 重启 Claude Code
-claude restart
-
-# 或者重新打开终端，运行
-claude
-```
-
-在 Claude Code 中输入：`/sinusitis-care`，如果看到技能启动，说明安装成功！
-
-## 快速开始
-
-### 第一次使用
-
-1. **启动 Claude Code**
-   ```bash
-   claude
-   ```
-
-2. **启动鼻窦炎护理技能**
-   ```
-   /sinusitis-care
-   ```
-
-3. **直接提问**
-
-   你可以直接问问题，无需特殊格式：
-
-   - "我鼻塞和面部疼痛已经5天了，怎么办？"
-   - "急性鼻窦炎和慢性鼻窦炎有什么区别？"
-   - "什么症状需要立即看医生？"
-   - "鼻腔冲洗应该多久做一次？"
-   - "鼻窦炎可以用抗生素吗？"
-
-### 咨询过程说明
-
-当你提问后，技能会自动：
-
-1. ✅ **启动循证审查模式** - 说明即将进行的文献检索
-2. 🔍 **执行多轮搜索** - 搜索 10-15+ 个权威医学数据库
-   - 第一轮：核心来源（UpToDate、AAO-HNS、Mayo Clinic、PubMed）
-   - 第二轮：深度研究（系统综述、专科资源）
-   - 第三轮：验证矛盾和最新进展
-3. 📖 **深度阅读** - 使用 WebFetch 完整阅读 3-5 篇关键文献
-4. 💡 **提供建议** - 给出基于证据的建议，标注可信度
-5. ⚠️ **检查危险信号** - 识别需要紧急就医的症状
-6. 📚 **列出来源** - 提供所有参考来源的完整列表
-
-### 可选功能：个人病历管理
-
-如果你想要追踪病史和咨询记录：
-
-**首次建档时**，助手会询问：
-- 年龄、性别等基本信息
-- 既往鼻窦炎病史
-- 过敏史和当前用药
-- 环境因素（吸烟、职业暴露等）
-- 近期检查结果（CT 扫描等）
-
-**数据存储位置**：
-- `~/.sinusitis-care/patient_profile.json` - 个人档案
-- `~/.sinusitis-care/consultations/` - 咨询记录（按日期）
-
-所有数据都保存在你的本地电脑，绝不上传到外部服务器。
+直接在网上查：如何安装claude code插件即可。
 
 ## 使用示例
 
